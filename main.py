@@ -1,11 +1,13 @@
 import telebot
 import spacy
+import logging
 from bot.models import ModelManager
 from bot.translation import Translator
 from bot.handlers import BotHandlers
 from dotenv import load_dotenv
 import os
-load_dotenv()
+
+
 spacy_models = {
     'en': spacy.load('en_core_web_sm'),
     'de': spacy.load('de_core_news_sm'),
@@ -14,9 +16,14 @@ spacy_models = {
     'ru': spacy.load('ru_core_news_sm'),
     'pl': spacy.load('pl_core_news_sm')
 }
-
+logging.basicConfig(level=logging.INFO)
+load_dotenv()
 
 API_TOKEN = os.getenv('API_TOKEN')
+if API_TOKEN:
+    logging.info(f"API Token loaded: {API_TOKEN}")
+else:
+    logging.error("API Token not found")
 mybot = telebot.TeleBot(API_TOKEN)
 
 
