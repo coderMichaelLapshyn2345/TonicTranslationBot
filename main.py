@@ -3,8 +3,9 @@ import spacy
 from bot.models import ModelManager
 from bot.translation import Translator
 from bot.handlers import BotHandlers
-
-
+from dotenv import load_dotenv
+import os
+load_dotenv()
 spacy_models = {
     'en': spacy.load('en_core_web_sm'),
     'de': spacy.load('de_core_news_sm'),
@@ -15,7 +16,7 @@ spacy_models = {
 }
 
 
-API_TOKEN = '7451488675:AAFGxWkLvRzV-1f9Vr8XD3Z3J9XyIxW-WEM'
+API_TOKEN = os.getenv('API_TOKEN')
 mybot = telebot.TeleBot(API_TOKEN)
 
 
