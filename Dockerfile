@@ -23,5 +23,8 @@ RUN python -m spacy download en_core_web_sm \
 # Copy the rest of the app code
 COPY . .
 
+EXPOSE 8080
+
+
 # Set the entry point for your application
 CMD ["python3", "main.py"]
