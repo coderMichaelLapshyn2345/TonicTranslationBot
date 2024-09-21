@@ -1,6 +1,8 @@
 import telebot
 import spacy
 import logging
+from threading import Thread
+from http.server import SimpleHTTPRequestHandler, HTTPServer
 from bot.models import ModelManager
 from bot.translation import Translator
 from bot.handlers import BotHandlers
@@ -64,5 +66,13 @@ def file_handler(message):
 @mybot.message_handler(func=lambda message: True)
 def handle_message(message):
     bot_handlers.handle_message(message)
+def run_http_server():
+    port = int(os.getenv('PORT', 8080))
+    handler = SimpleHTTPRequestHandler
+    httpd = HTTPServer(('0.0.0.0', port), handler)
+    logging.info(f"Starting HTTP server on port {port}")
+    httpd.serve_forever()
 
+thread = Thread(target=run_http_server)
+thread.start()
 mybot.infinity_polling()
