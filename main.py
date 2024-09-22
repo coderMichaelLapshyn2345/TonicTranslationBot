@@ -81,7 +81,7 @@ def run_http_server():
     httpd.serve_forever()
 
 
-WEBHOOK_URL = "https://bot-telegram-1064172082982.europe-west3.run.app"
+WEBHOOK_URL = "https://tonictranslationbot-1064172082982.europe-west3.run.app"
 mybot.set_webhook(url=WEBHOOK_URL)
 logging.info(f"Webhook set to {WEBHOOK_URL}")
 
