@@ -37,7 +37,7 @@ on:
 env:
   PROJECT_ID: '${{ secrets.PROJECT_ID}}'
   REGION: 'europe-west3' 
-  SERVICE: '${{ secrets.SERVICE}}' 
+  SERVICE: '${{ secrets.SERVICE_NAME}}' 
 
 jobs:
   deploy:
