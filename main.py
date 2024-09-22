@@ -80,5 +80,11 @@ def run_http_server():
     logging.info(f"Starting HTTP server on port {port}")
     httpd.serve_forever()
 
+
+WEBHOOK_URL = "https://bot-telegram-1064172082982.europe-west3.run.app"
+mybot.set_webhook(url=WEBHOOK_URL)
+logging.info(f"Webhook set to {WEBHOOK_URL}")
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
