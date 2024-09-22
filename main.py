@@ -8,7 +8,7 @@ from bot.translation import Translator
 from bot.handlers import BotHandlers
 from dotenv import load_dotenv
 import os
-
+from flask import Flask, request
 
 spacy_models = {
     'en': spacy.load('en_core_web_sm'),
@@ -35,7 +35,14 @@ translator = Translator(model_manager=model_manager, spacy_models=spacy_models)
 
 bot_handlers = BotHandlers(bot=mybot, translator=translator)
 
+app = Flask(__name__)
 
+@app.route(f"/{API_TOKEN}", methods=['POST'])
+def webhook():
+    json_str = request.get_data().decode('UTF-8')
+    update = telebot.types.Update.de_json(json_str)
+    mybot.process_new_updates([update])
+    return "OK", 200
 @mybot.message_handler(commands=['start'])
 def welcome_handler(message):
     bot_handlers.send_welcome(message)
@@ -73,6 +80,5 @@ def run_http_server():
     logging.info(f"Starting HTTP server on port {port}")
     httpd.serve_forever()
 
-thread = Thread(target=run_http_server)
-thread.start()
-mybot.infinity_polling()
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
