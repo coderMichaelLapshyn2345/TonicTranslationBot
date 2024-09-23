@@ -83,7 +83,7 @@ jobs:
           region: '${{ env.REGION }}'
           # NOTE: If using a pre-built image, update the image name below:
 
-          image: 'europe-west3-docker.pkg.dev/${{ env.PROJECT_ID }}/tonic-bot-repo/tonic-bot:test'
+          image: 'europe-west3-docker.pkg.dev/tonic-study-deployment/tonic-bot-repo/tonic-bot:test'
       # If required, use the Cloud Run URL output in later steps
       - name: 'Show output'
         run: |2-
