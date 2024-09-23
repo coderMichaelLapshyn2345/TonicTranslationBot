@@ -1,6 +1,6 @@
 import os
-from bot.file_processing import FileProcessor
-from bot.translation import Translator
+from .file_processing import FileProcessor
+from .translation import Translator
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 from langdetect import detect
 
