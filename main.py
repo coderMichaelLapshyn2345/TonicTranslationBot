@@ -1,14 +1,16 @@
 import telebot
 import spacy
 import logging
-from threading import Thread
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from bot.models import ModelManager
 from bot.translation import Translator
 from bot.handlers import BotHandlers
 from dotenv import load_dotenv
 import os
+import sys
 from flask import Flask, request
+sys.path.append("C:/Users/Lenovo/Desktop/GitHubBot")
+
 
 spacy_models = {
     'en': spacy.load('en_core_web_sm'),
@@ -16,7 +18,8 @@ spacy_models = {
     'fr': spacy.load('fr_core_news_sm'),
     'uk': spacy.load('uk_core_news_sm'),
     'ru': spacy.load('ru_core_news_sm'),
-    'pl': spacy.load('pl_core_news_sm')
+    'pl': spacy.load('pl_core_news_sm'),
+    'es': spacy.load('es_core_news_sm')
 }
 logging.basicConfig(level=logging.INFO)
 load_dotenv()
@@ -34,7 +37,6 @@ translator = Translator(model_manager=model_manager, spacy_models=spacy_models)
 
 
 bot_handlers = BotHandlers(bot=mybot, translator=translator)
-
 app = Flask(__name__)
 
 @app.route(f"/{API_TOKEN}", methods=['POST'])
@@ -81,10 +83,5 @@ def run_http_server():
     httpd.serve_forever()
 
 
-WEBHOOK_URL = "https://tonictranslationbot-1064172082982.europe-west3.run.app"
-mybot.set_webhook(url=WEBHOOK_URL)
-logging.info(f"Webhook set to {WEBHOOK_URL}")
-
-
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8080)))

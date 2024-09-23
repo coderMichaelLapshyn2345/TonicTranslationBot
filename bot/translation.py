@@ -1,4 +1,4 @@
-from bot.models import ModelManager
+from .models import ModelManager
 class Translator:
     def __init__(self, model_manager: ModelManager, spacy_models):
         self.model_manager = model_manager
