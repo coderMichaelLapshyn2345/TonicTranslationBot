@@ -11,6 +11,7 @@ import sys
 from flask import Flask, request
 sys.path.append("C:/Users/Lenovo/Desktop/GitHubBot")
 
+app = Flask(__name__)
 
 spacy_models = {
     'en': spacy.load('en_core_web_sm'),
@@ -37,7 +38,7 @@ translator = Translator(model_manager=model_manager, spacy_models=spacy_models)
 
 
 bot_handlers = BotHandlers(bot=mybot, translator=translator)
-app = Flask(__name__)
+
 
 @app.route("/", methods=['POST'])
 def webhook():
