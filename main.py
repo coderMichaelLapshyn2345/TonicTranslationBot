@@ -75,11 +75,6 @@ def file_handler(message):
 @mybot.message_handler(func=lambda message: True)
 def handle_message(message):
     bot_handlers.handle_message(message)
-def run_http_server():
-    port = int(os.environ.get('PORT', 8080))
-    handler = SimpleHTTPRequestHandler
-    httpd = HTTPServer(('0.0.0.0', port), handler)
-    logging.info(f"Starting HTTP server on port {port}")
-    httpd.serve_forever()
+
 
 
