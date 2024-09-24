@@ -39,7 +39,7 @@ translator = Translator(model_manager=model_manager, spacy_models=spacy_models)
 bot_handlers = BotHandlers(bot=mybot, translator=translator)
 app = Flask(__name__)
 
-@app.route(f"/{API_TOKEN}", methods=['POST'])
+@app.route("/", methods=['POST'])
 def webhook():
     json_str = request.get_data().decode('UTF-8')
     update = telebot.types.Update.de_json(json_str)
@@ -76,12 +76,10 @@ def file_handler(message):
 def handle_message(message):
     bot_handlers.handle_message(message)
 def run_http_server():
-    port = int(os.getenv('PORT', 8080))
+    port = int(os.environ.get('PORT', 8080))
     handler = SimpleHTTPRequestHandler
     httpd = HTTPServer(('0.0.0.0', port), handler)
     logging.info(f"Starting HTTP server on port {port}")
     httpd.serve_forever()
 
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 8080)))
