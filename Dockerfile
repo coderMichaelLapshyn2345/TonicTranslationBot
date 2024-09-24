@@ -22,6 +22,7 @@ RUN python -m spacy download en_core_web_sm \
 # Copy the rest of the app code
 COPY . .
 
+ENV PORT 8080
 EXPOSE 8080
 
 # Set the entry point for your application
