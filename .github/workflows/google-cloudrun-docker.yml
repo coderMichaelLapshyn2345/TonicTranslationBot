@@ -70,7 +70,7 @@ jobs:
 
       - name: 'Build and Push Container'
         run: |-
-          DOCKER_TAG="europe-west3-docker.pkg.dev/tonic-study-deployment/tonic-bot-repo/tonic-bot@sha256:0b1712c07d75383defd51d0527b1b0ae7a6f3c1020775a11f045f29734fee485"
+          DOCKER_TAG="europe-west3-docker.pkg.dev/tonic-study-deployment/tonic-bot-repo/tonic-bot:test"
           docker build --tag "${DOCKER_TAG}" .
           docker push "${DOCKER_TAG}"
       - name: 'Deploy to Cloud Run'
@@ -81,8 +81,8 @@ jobs:
         with:
           service: '${{ env.SERVICE }}'
           region: '${{ env.REGION }}'
-          image: 'europe-west3-docker.pkg.dev/tonic-study-deployment/tonic-bot-repo/tonic-bot@sha256:0b1712c07d75383defd51d0527b1b0ae7a6f3c1020775a11f045f29734fee485'
-          flags: '--allow-unauthenticated --memory 4Gi'
+          image: 'europe-west3-docker.pkg.dev/tonic-study-deployment/tonic-bot-repo/tonic-bot:test'
+          flags: '--allow-unauthenticated --memory 8Gi'
       # If required, use the Cloud Run URL output in later steps
       - name: 'Show output'
         run: |2-
