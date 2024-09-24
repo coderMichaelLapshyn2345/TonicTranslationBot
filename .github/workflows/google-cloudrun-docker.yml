@@ -82,7 +82,7 @@ jobs:
           service: '${{ env.SERVICE }}'
           region: '${{ env.REGION }}'
           image: 'europe-west3-docker.pkg.dev/tonic-study-deployment/tonic-bot-repo/tonic-bot:${{ github.sha }}'
-          flags: '--platform=managed --allow-unauthenticated --memory=4Gi'
+          flags: '--platform managed --allow-unauthenticated --memory 4Gi --timeout 1200s'
       # If required, use the Cloud Run URL output in later steps
       - name: 'Show output'
         run: |2-
