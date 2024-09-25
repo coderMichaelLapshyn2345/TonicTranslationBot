@@ -73,7 +73,7 @@ def language_selection_handler(message):
 @mybot.message_handler(content_types=['document'])
 def file_handler(message):
     bot_handlers.handle_file(message)
-@mybot.message_handler(func=lambda message: True)
+@mybot.message_handler(content_types=['text'])
 def handle_message(message):
     bot_handlers.handle_message(message)
 
