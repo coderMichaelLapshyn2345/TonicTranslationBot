@@ -22,7 +22,7 @@ spacy_models = {
     'pl': spacy.load('pl_core_news_sm'),
     'es': spacy.load('es_core_news_sm')
 }
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 load_dotenv()
 
 API_TOKEN = os.getenv('API_TOKEN')
@@ -73,7 +73,7 @@ def language_selection_handler(message):
 @mybot.message_handler(content_types=['document'])
 def file_handler(message):
     bot_handlers.handle_file(message)
-@mybot.message_handler(func=lambda message: message.text)
+@mybot.message_handler(func=lambda message: True)
 def handle_message(message):
     bot_handlers.handle_message(message)
 
