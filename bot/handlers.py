@@ -3,7 +3,7 @@ from .file_processing import FileProcessor
 from .translation import Translator
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 from langdetect import detect
-
+import logging
 class BotHandlers:
     def __init__(self, bot, translator: Translator):
         self.bot = bot
@@ -102,13 +102,25 @@ class BotHandlers:
     def handle_message(self, message):
         chat_id = message.chat.id
         text = message.text
-
+        logging.debug(f"Handling from chat_id: {chat_id}, text: {text}")
         if chat_id not in self.user_language:
             self.user_language[chat_id] = 'en'
-
-        input_language = detect(text)
+            logging.debug(f"Default language is set to 'en' for chat_id: {chat_id}")
+        try:
+            input_language = detect(text)
+            logging.debug(f"Detected language for chat_id {chat_id}: {input_language}")
+        except Exception as e:
+            logging.error(f"Error detecting language for chat_id {chat_id}: {e}")
+            self.bot.send_message(chat_id, "Sorry, I couldn't detect the language")
+            return
         target_language = self.user_language[chat_id]
-
-        translated_text = self.translator.translate(text, input_language, target_language)
-
+        logging.debug(f"Target language for chat_id: {chat_id}: {target_language}")
+        try:
+            translated_text = self.translator.translate(text, input_language, target_language)
+            logging.debug(f"Translated text for chat_id {chat_id}: {translated_text}")
+        except Exception as e:
+            logging.error(f"Error translating text for chat_id: {chat_id}: {e}")
+            self.bot.send_message(chat_id, "Sorry, an error occurred while translating the text")
+            return
         self.bot.send_message(chat_id, translated_text)
+        logging.debug(f"Sent translated message to chat_id: {chat_id}")
