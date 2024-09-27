@@ -1,3 +1,5 @@
+import logging
+
 from .models import ModelManager
 class Translator:
     def __init__(self, model_manager: ModelManager, spacy_models):
@@ -60,5 +62,8 @@ class Translator:
 
         return final_translation
     def translate(self, text, src_lang, tgt_lang):
+        logging.debug(f"Starting translation from {src_lang} to {tgt_lang} for text: {text}")
         model, tokenizer = self.model_manager.load_model(src_lang, tgt_lang)
-        return self.translate_in_chunks(text, model, tokenizer)
+        translated_text = self.translate_in_chunks(text, model, tokenizer)
+        logging.debug(f"Translation competed: {translated_text}")
+        return translated_text
