@@ -1,6 +1,6 @@
 import logging
-
 from .models import ModelManager
+
 class Translator:
     def __init__(self, model_manager: ModelManager, spacy_models):
         self.model_manager = model_manager
@@ -50,7 +50,7 @@ class Translator:
     def translate_with_named_entities(self, text, src_lang, tgt_lang):
         """Detect and translate the text with named entity recognition."""
 
-        model, tokenizer = self.model_manager.load_model(src_lang, tgt_lang)
+        model, tokenizer = self.model_manager.get_model_and_tokenizer(src_lang, tgt_lang)
 
         entities = self.detect_named_entities(text, src_lang)
 
@@ -63,7 +63,7 @@ class Translator:
         return final_translation
     def translate(self, text, src_lang, tgt_lang):
         logging.debug(f"Starting translation from {src_lang} to {tgt_lang} for text: {text}")
-        model, tokenizer = self.model_manager.load_model(src_lang, tgt_lang)
+        model, tokenizer = self.model_manager.get_model_and_tokenizer(src_lang, tgt_lang)
         translated_text = self.translate_in_chunks(text, model, tokenizer)
         logging.debug(f"Translation competed: {translated_text}")
-        return translated_text
+        return self.translate_in_chunks(text, model, tokenizer)
