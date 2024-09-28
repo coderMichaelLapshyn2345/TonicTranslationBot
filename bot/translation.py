@@ -64,6 +64,7 @@ class Translator:
     def translate(self, text, src_lang, tgt_lang):
         logging.debug(f"Starting translation from {src_lang} to {tgt_lang} for text: {text}")
         model, tokenizer = self.model_manager.get_model_and_tokenizer(src_lang, tgt_lang)
+        logging.debug(f"MODEL AND TOKENIZER FOR {src_lang}-{tgt_lang} LOADED SUCCESSFULLY")
         translated_text = self.translate_in_chunks(text, model, tokenizer)
-        logging.debug(f"Translation competed: {translated_text}")
+        logging.debug(f"TRANSLATION COMPLETED: {translated_text}")
         return self.translate_in_chunks(text, model, tokenizer)

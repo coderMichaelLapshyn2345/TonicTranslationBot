@@ -30,13 +30,12 @@ if API_TOKEN:
     logging.info(f"API Token loaded: {API_TOKEN}")
 else:
     logging.error("API Token not found")
-mybot = telebot.TeleBot(API_TOKEN)
+
 
 
 model_manager = ModelManager()
 translator = Translator(model_manager=model_manager, spacy_models=spacy_models)
-
-
+mybot = telebot.TeleBot(API_TOKEN)
 bot_handlers = BotHandlers(bot=mybot, translator=translator)
 
 
