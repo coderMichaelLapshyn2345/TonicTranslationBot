@@ -20,13 +20,13 @@ RUN python -m spacy download en_core_web_sm \
     && python -m spacy download es_core_news_sm
 
 
-RUN python -c "from transformers import MarianMTModel, MarianTokenizer; \
-    languages = [('uk', 'en'), ('ru', 'en'), ('en', 'de'), ('es', 'en'), ('fr', 'en')]; \
+RUN python -c 'from transformers import MarianMTModel, MarianTokenizer; \
+    languages = [("uk", "en"), ("ru", "en"), ("en", "de"), ("es", "en"), ("fr", "en")]; \
     for src, tgt in languages: \
-        model_name = f'Helsinki-NLP/opus-mt-{src}-{tgt}'; \
+        model_name = f"Helsinki-NLP/opus-mt-{src}-{tgt}"; \
         MarianMTModel.from_pretrained(model_name); \
         MarianTokenizer.from_pretrained(model_name); \
-        print(f'Model {model_name} downloaded')"
+        print(f"Model {model_name} downloaded")'
 
 
 RUN pip install waitress
