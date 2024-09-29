@@ -28,6 +28,7 @@ RUN python -c "from transformers import MarianMTModel, MarianTokenizer; \
         MarianTokenizer.from_pretrained(model_name); \
         print(f'Model {model_name} downloaded')"
 
+
 RUN pip install waitress
 # Copy the rest of the app code
 COPY . .
