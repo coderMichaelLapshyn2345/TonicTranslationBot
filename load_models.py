@@ -12,7 +12,7 @@ def download_models():
         ("fr", "ru"), ("uk", "es"), ("es", "uk"),
         ("en", "uk"), ("en", "es"), ("en", "fr"),
         ("uk", "ru"), ("ru", "uk"), ("en", "ru"),
-        ("de", "uk"), ("de", "ru"), ("ru", "de")
+        ("de", "uk")
     ]
 
     for src, tgt in languages:
