@@ -25,7 +25,7 @@ RUN python load_models.py
 
 
 RUN pip install waitress
-# Copy the rest of the app code
+
 
 
 ENV PORT 8080
